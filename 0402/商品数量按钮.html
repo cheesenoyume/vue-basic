@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueproj</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+        #container input{
+            float:left;
+            background-color: gray;
+            height:30px;
+            width:30px;
+            border:1px solid gray;
+        }
+        #container input:first-child{
+            border-radius:5px 0 0 5px;
+        }
+        #container input:last-child{
+            border-radius: 0 5px 5px 0;
+        }
+        #container div:nth-child(2){
+            border:1px solid gray;
+            float:left;
+            width:30px;
+            height:30px;
+            text-align:center;
+            line-height:30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <input type="button" value="-" @click="minusVal">
+        <div v-text="content"></div>
+        <input type="button" value="+"  @click="addVal">
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#container",
+            data:{
+                content:0
+            },
+            methods:{
+                addVal:function(){
+                    if(this.content<5){
+                        this.content++;
+                    }
+                },
+                minusVal:function(){
+                    if(this.content>0){
+                        this.content--;
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            position:relative;
+            overflow:hidden;
+            border:1px solid black;
+        }
+    div,img,#zhezhao{
+        width:200px;
+        height:200px;
+    }
+    #zhezhao{
+        position:absolute;
+        top:0;
+        left:0;
+        background-color: rgba(0,0,0,0.4);
+        color:orange;
+        font-weight:bold;
+        text-align:center;
+        line-height:200px;
+    }
+    
+    </style>
+</head>
+<body>
+    <div id="container"  @click="isShow" >
+        <img src="IMG1.jpg" alt="web">
+        <div id="zhezhao" v-show="content">pause</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        window.onload=function(){
+            var app = new Vue({
+            el:"#container",
+            data:{
+                content:false
+            },
+            methods:{
+                isShow:function(){
+                    // alert(this.content);
+                    this.content=!this.content;
+                    // if(this.content == false){
+                    //     this.content = true;
+                    // }else{
+                    //     this.content = false;
+                    // }
+                }
+            }
+        })
+
+        }
+        
+    </script>
+</body>
+</html>

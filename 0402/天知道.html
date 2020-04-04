@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            width:1000px;
+            height:400px;
+            border:1px solid red;
+        }
+        p{
+            text-align:center;
+            font-size:30px;
+        }
+        input,#cities{
+            margin-left:200px;
+        }
+        input{
+            width:550px;
+        }
+        #cities{
+            text-align:left;
+        }
+        ul{
+            /* border:1px solid red; */
+            float:left;
+        }
+        #content li+li{
+            border-left:1px solid red;
+        }
+        #content li{
+            padding:20px;
+            float:left;
+            margin-left:10px;
+            width:100px;
+            list-style-type:none;
+        }
+        #cities li{
+            margin:0 10px;
+            float:left;
+            list-style-type:none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 天知道组件
+    输入地名查询天气
+    点击城市名显示天气，文本框内显示该城市名 -->
+    <!-- http://wthrcdn.etouch.cn/weather_mini -->
+    <div id="container">
+        <p>天知道</p>
+        <input type="text" v-model="city" @keyup.enter="queryCity"><button @click="queryCity">搜索</button>
+        <br>
+        <div id="cities">
+            <!-- <span>北京</span> &nbsp;&nbsp;<span>上海</span> &nbsp;&nbsp; <span>广州</span> &nbsp;&nbsp; <span>深圳</span>
+             -->
+             <li v-for="(item,index) in cityArr" @click="changeCity(index)">{{item}}</li>
+        </div>
+        <div id="content">
+            <ul>
+                <li>{{obj.date}}<br>
+                    {{obj.low}} {{obj.high}}<br>
+                    {{obj.type}}<br>
+                </li>
+                <li v-for="item in arr">{{item.date}}<br>
+                    {{item.low}}  {{item.high}}<br>
+                    {{item.type}}<br>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#container",
+            data:{
+                city:"",
+                cityArr:["北京","上海","广州","深圳"],
+                obj:{},
+                arr:[]
+            },
+            methods:{
+                queryCity:function(){
+                    axios.get("http://wthrcdn.etouch.cn/weather_mini?city="+this.city).then(resp=>{
+                        this.obj = resp.data.data.yesterday;
+                        this.arr = resp.data.data.forecast;
+                        // console.log(this.arr);
+                    },function(err){
+                        alert("error!")
+                    })
+                },
+                changeCity:function(index){
+                    this.city=this.cityArr[index];
+                    this.queryCity();
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

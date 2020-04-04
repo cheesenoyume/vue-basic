@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            width:30px;
+            height:30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <greeting></greeting>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("greeting",{
+            template:"<p>bjyx-{{name}}<button @click='getName'></button></p>",
+            data:function(){
+                return {
+                    name:"web"
+                }
+            },
+            methods:{
+                getName:function(){
+                    this.name = "xz";
+                }
+            }
+        })
+        new Vue({
+            el:"#container"
+        })
+    </script>
+</body>
+</html>

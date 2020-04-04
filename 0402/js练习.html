@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 判断回文字符串
+        var str = "bjyxszd";
+        var str1 = "aabbaa";
+        var str2 = "aba"
+
+        // console.log(isHuiWen(str));
+        // console.log(isHuiWen(str1));
+        // console.log(isHuiWen(str2));
+
+        function isHuiWen(str){
+            for(var i=0;i<str.length/2;i++){
+                if(str.charAt(str.length-1-i)!=str.charAt(i)){
+                    return false;
+                }
+            }
+            return true;
+        }
+    //   输入[a,b,c]，输出[aa,bb,cc]
+    var arr = new Array("a","b","c");
+    for(var i=0;i<arr.length;i++){
+        arr[i]=arr[i]+arr[i];
+    }
+    console.log(arr);
+    
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

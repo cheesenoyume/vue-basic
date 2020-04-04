@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 接口 https://autumnfish.cn/api/joke/list -->
+    <div id="container">
+        请输入几条<input type="text" v-model="num" @keyup.enter="show">
+        <div>
+            <ul>
+                <li v-for="item in joke">{{item}}</li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#container",
+            data:{
+                num:1,
+                joke:[]
+            },
+            methods:{
+                // 注意这里有闭包
+                show:function(){
+                    axios.get("https://autumnfish.cn/api/joke/list?num="+this.num).then(response=>{
+                        console.log(response.data.jokes);
+                        // alert("sf");
+                        this.joke = response.data.jokes;
+                    },function(err){})
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-size:14px;
+        }
+        #container{
+            width:300px;
+            color:grey;
+            text-align:center;
+            line-height:30px;
+            border:1px solid gray;
+        }
+        #inputBar{
+            background-color: #cccccc;
+            padding:0 5px;
+        }
+        li,#foot, #inputBar{
+            text-align:left;
+            width:300px;
+            height:30px;
+            border:1px solid gray;
+        }
+        #lastLeft{
+            float:left;
+        }
+        a{
+            float:right;
+            text-decoration: none;
+            color:grey;
+            padding:0 5px;
+        }
+        button{
+            display:none;
+            float:right;
+            width:20px;
+            height:20px;
+            text-align:center;
+            vertical-align:center;
+            margin:5px;
+            border:transparent;
+            background-color: transparent;
+        }
+        li:hover button{
+            display:inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- 需求：
+    在文本框中输入内容，添加条目
+    悬浮在单条条目上出现x，点击后该条目消失
+    最下面显示一共几条，点击clear所有条目消失 -->
+    
+    <!-- 总结：别忘记this，在测试过程中，会发现自己没有考虑到的情况，之后可进行代码更改 -->
+    <div id="container">
+        <div style="font-weight:bold;text-align:center">to-do-list</div>
+        <input type="text" id="inputBar" v-model="message" @keyup.enter="addThing">
+        <div>
+            <ul>
+                <li v-for="(item,index) in arr">{{index+1}}&nbsp;&nbsp;{{item}}  <button @click="clearOne(index)">X</button></li>
+            </ul>
+            <div id="foot" v-show="isShow">
+                <div id="lastLeft">共<span>{{count}}</span>条记录</div>
+                <a href="javascript:0" @click="clearAll">clear</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#container",
+            data:{
+                message:"",
+                arr:[],
+                count:0,
+                isShow:false
+            },
+            methods:{
+                addThing:function(){
+                    // alert("this.message");
+                    this.arr.push(this.message);
+                    //输入后清空输入条
+                    this.message='';
+                    this.count++;
+                    this.isShow=true;
+                },
+                // 注意要传入Index
+                clearOne:function(index){
+                    this.arr.splice(index,1);
+                    //减去记录
+                    this.count--;
+                },
+                clearAll:function(){
+                    //清空数组，count归零
+                    this.arr=[];
+                    this.count=0;
+                    //z最后一行不显示
+                    this.isShow=false;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
